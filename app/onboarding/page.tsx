@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 export default function OnboardingPage() {
   const [user, setUser] = useState<any>(null)

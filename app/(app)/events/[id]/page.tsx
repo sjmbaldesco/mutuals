@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { PartyPopper, CheckCircle2, XCircle, Clock, DollarSign, ArrowLeft, Check, X } from 'lucide-react'
 import Link from 'next/link'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 export default function EventDetailPage() {
   const [event, setEvent] = useState<any>(null)

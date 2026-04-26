@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Plus, Trash2, Calendar as CalendarIcon } from 'lucide-react'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 // Helper to get days of current week (Starting today)
 function getNext7Days() {
@@ -230,6 +230,7 @@ export default function CalendarPage() {
                             onClick={() => handleDelete(block.id)}
                             className="absolute top-1 right-1 p-1 text-blue-400 hover:text-red-500 hover:bg-red-50 rounded md:opacity-0 group-hover:opacity-100 transition-opacity"
                             title="Delete block"
+                            aria-label="Delete block"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>

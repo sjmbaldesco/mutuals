@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Trash2, Wallet, Lock, TrendingUp, TrendingDown } from 'lucide-react'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 export default function BudgetPage() {
   const [entries, setEntries] = useState<any[]>([])
@@ -209,6 +209,7 @@ export default function BudgetPage() {
                     <button 
                       onClick={() => handleDelete(entry.id)}
                       className="p-1 text-gray-400 hover:text-red-500 rounded md:opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Delete income entry"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -242,6 +243,7 @@ export default function BudgetPage() {
                     <button 
                       onClick={() => handleDelete(entry.id)}
                       className="p-1 text-gray-400 hover:text-red-500 rounded md:opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Delete expense entry"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>

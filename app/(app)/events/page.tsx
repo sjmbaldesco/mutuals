@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Plus, PartyPopper, CheckCircle2, XCircle, Clock, DollarSign } from 'lucide-react'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 export default function EventsPage() {
   const [events, setEvents] = useState<any[]>([])
