@@ -41,9 +41,9 @@ export default function SignupPage() {
       return
     }
 
-    // Success -> Redirect to onboarding
-    // The public.users row is created automatically by the on_auth_user_created trigger
-    router.push('/onboarding')
+    // Success -> Redirect directly to dashboard
+    // Pairing is now handled in-app from /pair.
+    router.push('/dashboard')
     router.refresh()
   }
 
