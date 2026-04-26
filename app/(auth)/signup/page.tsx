@@ -20,9 +20,13 @@ export default function SignupPage() {
     setError(null)
 
     // 1. Sign up the user via Supabase Auth
+    // display_name is passed as metadata so the DB trigger can use it
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: { display_name: displayName },
+      },
     })
 
     if (authError) {
@@ -37,20 +41,8 @@ export default function SignupPage() {
       return
     }
 
-    // 2. Insert into the public.users table
-    const { error: dbError } = await supabase.from('users').insert({
-      id: authData.user.id,
-      email: email,
-      display_name: displayName,
-    })
-
-    if (dbError) {
-      setError(dbError.message)
-      setLoading(false)
-      return
-    }
-
     // Success -> Redirect to onboarding
+    // The public.users row is created automatically by the on_auth_user_created trigger
     router.push('/onboarding')
     router.refresh()
   }
