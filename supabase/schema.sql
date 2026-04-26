@@ -69,7 +69,15 @@ TO authenticated
 WITH CHECK (auth.uid() = id);
 
 -- availability policies
-CREATE POLICY "All operations only for own availability"
+CREATE POLICY "Select own and friend availability"
+ON public.availability FOR SELECT
+TO authenticated
+USING (
+  user_id = auth.uid() OR
+  auth.uid() = (SELECT friend_id FROM public.users WHERE id = availability.user_id)
+);
+
+CREATE POLICY "Insert/Update/Delete own availability"
 ON public.availability FOR ALL
 TO authenticated
 USING (user_id = auth.uid())
@@ -96,11 +104,17 @@ ON public.proposed_events FOR INSERT
 TO authenticated
 WITH CHECK (proposed_by = auth.uid());
 
-CREATE POLICY "Update only for proposed_by"
+CREATE POLICY "Update for both users in pair"
 ON public.proposed_events FOR UPDATE
 TO authenticated
-USING (proposed_by = auth.uid())
-WITH CHECK (proposed_by = auth.uid());
+USING (
+  proposed_by = auth.uid() OR
+  auth.uid() = (SELECT friend_id FROM public.users WHERE id = proposed_events.proposed_by)
+)
+WITH CHECK (
+  proposed_by = auth.uid() OR
+  auth.uid() = (SELECT friend_id FROM public.users WHERE id = proposed_events.proposed_by)
+);
 
 -- 7. Availability Intersection Query Reference
 /*

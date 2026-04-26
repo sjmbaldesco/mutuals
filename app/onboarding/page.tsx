@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import toast from 'react-hot-toast'
 
 export default function OnboardingPage() {
   const [user, setUser] = useState<any>(null)
@@ -93,7 +94,7 @@ export default function OnboardingPage() {
       .eq('id', user.id)
 
     if (updateSelfError) {
-      setError(updateSelfError.message)
+      toast.error(updateSelfError.message)
       setSubmitting(false)
       return
     }
